@@ -1,29 +1,17 @@
 /*
- * SubsetStringMultiReplacement.c
- *
+ * SubsetStringMultiGeneralReplacement.c
  */
-
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
-#define NL printf("\n")
 
 typedef char * string;
 
 
-
-
 void findNreplace (string,string,string);
 int ISsubset (string,string);
-
-
-
-
-
-
 
 
 int main(int argc, char **argv)
@@ -54,34 +42,25 @@ int main(int argc, char **argv)
 
 void findNreplace (string sup,string sub,string replacement)
 {
-	
-	
-	
 	unsigned int supSize = strlen (sup);
 	unsigned int subSize = strlen (sub);
+	unsigned int repSize = strlen (replacement);
 	
 	
 	
 	char truncate[subSize+1];
-	char modified[supSize+1];
+	
 	
 	for(int ind=0;ind<subSize+1;++ind)
 	{
-		truncate[ind]='\0';
+		truncate[ind] = '\0';
 		
 	}
 	
 	
-	
-	for(int ind = 0; ind < subSize + 1; ++ind)
-	{
-		modified[ind]='\0';
-	}
-	
-		
 	if (ISsubset (sup,sub) == 0)
 		{
-				printf("%s\n",sup);
+				printf("%s",sup);
 		}
 	
 	else
@@ -95,36 +74,28 @@ void findNreplace (string sup,string sub,string replacement)
 								truncate[j] = sup[j + index];
 							}	
 					
+					char chop[supSize-subSize-index+1];	
+		     
+		    for(int ind=0;ind<supSize-subSize-index;++ind)
+				{
+					chop[ind] = sup[index+subSize+ind];
+		
+				}
+		     chop[supSize-subSize-index] = '\0';
 					
 				
 				   
 				   
 				   if (strcmp(truncate,sub) == 0)
 					{ 
-						for (int j = 0;j < supSize ;++j)
-									{
-										if (index <= j && j < index + subSize) 
-											{
-												modified[j] = replacement[j - index];
-											}
-									
-										else 
-											{
-												modified[j] = sup[j];
-											}
-									}
-					
-							
-							findNreplace(modified,sub,replacement);
-							break;//This is required to ensure that the for loop doesn't continue further
-							      //to execute the loop and instead restarts again with the semi-modified 
-							      //answer.
+
+						for (int k = 0; k < index; k ++) {printf("%c",sup[k]);}
+						for (int l = 0; l < repSize; l ++) {printf("%c",replacement[l]);}
+						findNreplace(chop,sub,replacement);
+						break;
 					}	
+		
 			
-		     
-		     
-		     
-		     
 		     
 		     
 		     
@@ -145,23 +116,6 @@ void findNreplace (string sup,string sub,string replacement)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 int ISsubset (string sup,string sub)
 {
 	unsigned int supSize = strlen (sup);
@@ -179,10 +133,7 @@ int ISsubset (string sup,string sub)
 	}
 	
 
-	                     
-
-	
-		if (supSize < subSize) 
+	        if (supSize < subSize) 
 			{
 			retval = 0;
 			}
@@ -215,3 +166,5 @@ int ISsubset (string sup,string sub)
 	return retval;
 	
 }
+
+
