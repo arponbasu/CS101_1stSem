@@ -1,5 +1,5 @@
 /*
- * SubsetStringReplacement.c
+ * SubsetStringMultiReplacement.c
  *
  */
 
@@ -14,13 +14,13 @@
 typedef char * string;
 
 
-bool isVerbose = false;
+
 
 void findNreplace (string,string,string);
 int ISsubset (string,string);
 
 
-void test_findNreplace();
+
 
 
 
@@ -30,7 +30,7 @@ int main(int argc, char **argv)
 {
 	
 	
-/*	if (argc != 4)
+	if (argc != 4)
 			{
 				printf("\nImproper Input. Usage [./executable][STRING][STRING][STRING]\n");
 				exit(0);
@@ -42,32 +42,12 @@ int main(int argc, char **argv)
 				
 				findNreplace (sup,sub,replacement);
 				
-		 }*/
-		 test_findNreplace();
+		 }
 	
 	printf("\n");
 	return 0;
 }
 
-void test_findNreplace()
-{
-	string sup[3]={"Arindam","Arpon","Urjoshi"};
-	string sub[5]={"Ari","rp","josh"};
-	
-	string rep[5]={"Alu","*g","kulu"};
-	
-	for(int i=0;i<3;i++)
-	{
-	printf("Test Data\n Original String=[%s],Search String=[%s] Replacement String=[%s]\n",sup[i],sub[i],rep[i]);
-	//printf("Expected Output=[%s]\n","Alundam");
-	printf("**************Actual Output*******************\n");
-	
-	findNreplace (sup[i],sub[i],rep[i]);
-	NL;//printf("\n");
-    }
-
-	
-}
 
 
 
@@ -75,20 +55,24 @@ void test_findNreplace()
 void findNreplace (string sup,string sub,string replacement)
 {
 	
-	if(isVerbose) printf("Original String=[%s],Search String=[%s] Replacement String=[%s]\n",sup,sub,replacement);
+	
 	
 	unsigned int supSize = strlen (sup);
 	unsigned int subSize = strlen (sub);
 	
 	
+	
 	char truncate[subSize+1];
+	char modified[supSize+1];
+	
 	for(int ind=0;ind<subSize+1;++ind)
 	{
 		truncate[ind]='\0';
+		
 	}
 	
 	
-	char modified[supSize+1];
+	
 	for(int ind = 0; ind < subSize + 1; ++ind)
 	{
 		modified[ind]='\0';
@@ -102,21 +86,21 @@ void findNreplace (string sup,string sub,string replacement)
 	
 	else
 		{
-			for (int index = 0; index <= supSize - subSize; index ++)
+			for (int index = 0; index <= (supSize - subSize); index ++)
 			{
 			
 					
-									for (int j = 0;j < subSize ;++j)
-									{
-										truncate[j] = sup[j + index];
-									}	
+						for (int j = 0;j < subSize ;++j)
+							{
+								truncate[j] = sup[j + index];
+							}	
 					
 					
 				
 				   
 				   
 				   if (strcmp(truncate,sub) == 0)
-					{
+					{ 
 						for (int j = 0;j < supSize ;++j)
 									{
 										if (index <= j && j < index + subSize) 
@@ -130,8 +114,11 @@ void findNreplace (string sup,string sub,string replacement)
 											}
 									}
 					
-							printf("%s\n",modified);
-					
+							
+							findNreplace(modified,sub,replacement);
+							break;//This is required to ensure that the for loop doesn't continue further
+							      //to execute the loop and instead restarts again with the semi-modified 
+							      //answer.
 					}	
 			
 		     
