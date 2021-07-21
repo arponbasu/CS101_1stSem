@@ -1,0 +1,25 @@
+/*
+
+
+This file is created by Arpon Basu.
+Date:-
+
+
+*/
+
+
+
+
+
+#include<stdio.h>
+
+int main()
+{
+return 0;
+}
+
+/*
+Writing a semi-colon besides the else or else if keywords prevents the compiler from executing the argument in them though it doesn't show up as an error.But this may create problems.
+
+*/
+
